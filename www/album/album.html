@@ -132,6 +132,7 @@ var app = new Vue({
 			'./img/IMG_1235.jpeg',
 		],
 		show_clock_time: 0,
+		show_clock_time_new: 0,
 		hour1: Math.floor((new Date()).getHours()/10),
 		hour2: Math.floor((new Date()).getHours()%10),
 		min1: Math.floor((new Date()).getMinutes()/10),
@@ -153,6 +154,11 @@ var app = new Vue({
 		setInterval(function(){
 			if(index.$data.show_clock_time > 0){
 				index.$data.show_clock_time -= 1;
+			}
+			index.$data.show_clock_time_new += 1;
+			if(index.$data.show_clock_time_new == 30){
+				index.$data.show_clock_time = 5;
+				index.$data.show_clock_time_new = 0;
 			}
 			var myDate=new Date();
 			index.$data.hour1 = Math.floor(myDate.getHours()/10);
