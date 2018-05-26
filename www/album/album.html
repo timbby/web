@@ -156,7 +156,7 @@ var app = new Vue({
 				index.$data.show_clock_time -= 1;
 			}
 			index.$data.show_clock_time_new += 1;
-			if(index.$data.show_clock_time_new == 30){
+			if(index.$data.show_clock_time_new === 30){
 				index.$data.show_clock_time = 3;
 				index.$data.show_clock_time_new = 0;
 			}
@@ -177,7 +177,7 @@ var app = new Vue({
 	},
 	computed: {
 		show_clock: function(){
-			return this.$data.show_clock_time != 0
+			return this.$data.show_clock_time !== 0
 		}
 	},
 	watch: {
