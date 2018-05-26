@@ -1,0 +1,21 @@
+{
+    "redis": "45.32.117.200",
+    "log": "/data/log/web_server",
+    "db": {
+        "adapter":"mysql2",
+        "host":"45.32.117.200",
+        "user":"root",
+        "password":"150423",
+        "database":"web_server",
+        "charset":"utf8",
+        "test":true,
+        "logger":"/data/log/db_web_server.log",
+        "slaves":[
+            "45.32.117.200"
+        ],
+        "max_connections":8,
+        "pool_timeout":5,
+        "pool_sleep_time":0.001,
+        "single_threaded":false
+    }
+}

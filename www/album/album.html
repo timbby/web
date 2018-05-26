@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>相册</title>
+	<script type="text/javascript" src="./js/vue.js"></script>
+	<link rel="stylesheet" href="./css/swiper.min.css">
+	<script src="./js/swiper.min.js"></script>
+	<style type="text/css">
+		*{margin: 0;padding: 0;border: 0;}
+		body{
+			background: #000000
+		}
+
+		.v_center{
+			display: -webkit-flex;
+			display: flex;
+			-webkit-align-items: center;
+			align-items: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+		}
+
+		.all{
+			position: relative;
+			height: 110vh;
+			width: 100vw;
+			overflow: hidden;
+		}
+		.album{
+			position: relative;
+			height: 100vh;
+			width: 100vw;
+			overflow: hidden;
+		}
+
+		.img{
+			position: relative;
+			height: 100vh
+		}
+
+		.img img{
+			height: 100vh;
+		}
+
+		.clock{
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100vh;
+			width: 100vw;
+			color: white;
+			z-index: 2;
+			background: black;
+		}
+		.clock .time{
+			position: absolute;
+			top: 0vh;
+			font-size: 22vw;
+			line-height: 100vh;
+			width: 14vw;
+			text-align: center;
+		}
+		.clock .hour1{
+			left: 9vw;
+		}
+		.clock .hour2{
+			left: 23vw;
+		}
+		.clock .spec{
+			left: 37vw;
+		}
+		.clock .min1{
+			left: 51vw;
+		}
+		.clock .min2{
+			left: 65vw;
+		}
+		.clock .sec1{
+			left: 81vw;
+			font-size: 7vw;
+			margin-top: 5vw;
+			width: 7vw;
+		}
+		.clock .sec2{
+			left: 88vw;
+			font-size: 7vw;
+			margin-top: 5vw;
+			width: 7vw;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<div class="all" v-on:click="app_click">
+		<div class="album">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide img v_center" v-for="img in img_list">
+						<img v-bind:src="img">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clock" v-show="show_clock">
+			<div class="time hour1" v-text="hour1">
+			</div>
+			<div class="time hour2" v-text="hour2">
+			</div>
+			<div class="time spec">
+				:
+			</div>
+			<div class="time min1" v-text="min1">
+			</div>
+			<div class="time min2" v-text="min2">
+			</div>
+			<div class="time sec1" v-text="sec1">
+			</div>
+			<div class="time sec2" v-text="sec2">
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+var app = new Vue({
+	el: '#app',
+	data: {
+		img_list: [
+			'./img/IMG_1231.jpeg',
+			'./img/IMG_1233.jpeg',
+			'./img/IMG_1235.jpeg',
+		],
+		show_clock_time: 0,
+		hour1: Math.floor((new Date()).getHours()/10),
+		hour2: Math.floor((new Date()).getHours()%10),
+		min1: Math.floor((new Date()).getMinutes()/10),
+		min2: Math.floor((new Date()).getMinutes()%10),
+		sec1: Math.floor((new Date()).getSeconds()/10),
+		sec2: Math.floor((new Date()).getSeconds()%10)
+	},
+	mounted: function () {
+		var index = this;
+		var swiper = new Swiper('.swiper-container', {
+			// spaceBetween: 30,
+			centeredSlides: true,
+			loop: true,
+			autoplay: {
+				delay: 2500,
+				disableOnInteraction: false,
+			}
+		});
+		setInterval(function(){
+			if(index.$data.show_clock_time > 0){
+				index.$data.show_clock_time -= 1;
+			}
+			var myDate=new Date();
+			index.$data.hour1 = Math.floor(myDate.getHours()/10);
+			index.$data.hour2 = Math.floor(myDate.getHours()%10);
+			index.$data.min1  = Math.floor(myDate.getMinutes()/10);
+			index.$data.min2  = Math.floor(myDate.getMinutes()%10);
+			index.$data.sec1  = Math.floor(myDate.getSeconds()/10);
+			index.$data.sec2  = Math.floor(myDate.getSeconds()%10);
+		}, 1000);
+	},
+	methods: {
+		app_click: function () {
+			this.$data.show_clock_time = 3;
+		}
+	},
+	computed: {
+		show_clock: function(){
+			return this.$data.show_clock_time != 0
+		}
+	},
+	watch: {
+	}
+});
+</script>
+</body>
+</html>
